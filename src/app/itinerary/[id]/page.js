@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${itinerary.title} - Zapin Itinerary Hub`,
+    title: `${itinerary.title} - Itinero`,
     description: itinerary.description,
   };
 }

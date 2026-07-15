@@ -4,7 +4,7 @@ import Link from "next/link";
 import "./globals.css";
 
 export const metadata = {
-  title: "Zapin Itinerary Hub - Share & Verify Travel Itineraries",
+  title: "Itinero - Share & Verify Travel Itineraries",
   description: "Find verified travel itineraries, verify routes as 'real' or 'accurate', and seamlessly organize your trips. Export itineraries directly to Zapin.",
 };
 
@@ -24,10 +24,10 @@ export default async function RootLayout({ children }) {
           <div className="app-container">
             <header className="navbar">
               <Link href="/" className="nav-logo">
-                ✈️ Zapin <span>Itinerary Hub</span>
+                Itin<span>ero</span>
               </Link>
               <nav className="nav-links">
-                <Link href="/" className="btn btn-secondary">
+                <Link href="/explore" className="btn btn-secondary">
                   Explore
                 </Link>
                 

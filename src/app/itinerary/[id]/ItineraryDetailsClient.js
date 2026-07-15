@@ -21,7 +21,8 @@ import {
   MessageSquare,
   BadgeAlert,
   Share2,
-  ExternalLink
+  ExternalLink,
+  Link2
 } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 
@@ -200,6 +201,13 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
       `Feedback, votes, and verifications are appreciated!`
     );
     window.open(`https://www.reddit.com/submit?title=${title}&text=${text}`, "_blank");
+  };
+
+  // 7. Copy Shareable Link
+  const copyShareableLink = () => {
+    const link = `${window.location.origin}/itinerary/${itinerary.id}`;
+    navigator.clipboard.writeText(link);
+    alert("Shareable link copied to clipboard!");
   };
 
   return (
@@ -402,13 +410,20 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
         {/* Reddit Sharing Box */}
         <div className="sidebar-box">
           <h4 style={{ marginBottom: "1rem", fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <Share2 size={18} style={{ color: "#ff4500" }} /> Reddit Share
+            <Share2 size={18} style={{ color: "var(--primary)" }} /> Share & Export
           </h4>
           <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.25rem" }}>
-            Format this itinerary to paste in subreddits or submit a review request link.
+            Share your travel route with others or format it for subreddits like r/travel.
           </p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <button 
+              onClick={copyShareableLink}
+              className="btn btn-primary" 
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              <Link2 size={16} /> Copy Shareable Link
+            </button>
             <button 
               onClick={copyRedditMarkdown}
               className="btn btn-secondary" 
