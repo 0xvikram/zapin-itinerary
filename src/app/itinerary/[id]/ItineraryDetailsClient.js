@@ -22,7 +22,9 @@ import {
   BadgeAlert,
   Share2,
   ExternalLink,
-  Link2
+  Link2,
+  Reply,
+  CornerDownRight
 } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 
@@ -31,6 +33,9 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
   const [itinerary, setItinerary] = useState(initialItinerary);
   const [commentContent, setCommentContent] = useState("");
   const [isCommenting, setIsCommenting] = useState(false);
+  const [replyingToId, setReplyingToId] = useState(null);
+  const [replyContent, setReplyContent] = useState("");
+  const [isReplying, setIsReplying] = useState(false);
   
   // Zapin simulated states
   const [zapinExporting, setZapinExporting] = useState(null); // 'calendar' | 'pdf' | null
@@ -141,6 +146,37 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
       });
     } else {
       alert(result.error || "Failed to post comment");
+    }
+  };
+
+  // 3b. Reply Submit
+  const handleReplySubmit = async (e, parentId) => {
+    e.preventDefault();
+    if (!currentUserId) return;
+    if (!replyContent.trim()) return;
+
+    setIsReplying(true);
+    const result = await addComment(itinerary.id, replyContent, parentId);
+    setIsReplying(false);
+
+    if (result.success) {
+      setReplyContent("");
+      setReplyingToId(null);
+      
+      const newReply = {
+        id: `local-${Date.now()}`,
+        author_name: "You",
+        author_image: "",
+        content: replyContent,
+        parent_id: parentId,
+        created_at: new Date().toISOString()
+      };
+      setItinerary({
+        ...itinerary,
+        comments: [newReply, ...(itinerary.comments || [])]
+      });
+    } else {
+      alert(result.error || "Failed to post reply");
     }
   };
 
@@ -290,24 +326,103 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
                 No comments yet. Be the first to ask a question!
               </div>
             ) : (
-              itinerary.comments.map((comm) => (
-                <div key={comm.id} className="comment-card">
-                  {comm.author_image ? (
-                    <img src={comm.author_image} alt={comm.author_name} className="comment-author-avatar" />
-                  ) : (
-                    <div className="comment-author-avatar" style={{ background: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: "bold", fontSize: "0.8rem" }}>
-                      {comm.author_name.charAt(0)}
+              (() => {
+                const parentComments = (itinerary.comments || []).filter((c) => !c.parent_id);
+                const commentReplies = (itinerary.comments || []).filter((c) => c.parent_id);
+
+                return parentComments.map((comm) => {
+                  const repliesForThisComment = commentReplies.filter((r) => r.parent_id === comm.id);
+
+                  return (
+                    <div key={comm.id} style={{ marginBottom: "2.5rem" }}>
+                      {/* Main Parent Comment */}
+                      <div className="comment-card" style={{ marginBottom: "0.5rem" }}>
+                        {comm.author_image ? (
+                          <img src={comm.author_image} alt={comm.author_name} className="comment-author-avatar" />
+                        ) : (
+                          <div className="comment-author-avatar" style={{ background: "var(--primary)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-inverse)", fontWeight: "bold", fontSize: "0.8rem" }}>
+                            {comm.author_name.charAt(0)}
+                          </div>
+                        )}
+                        <div className="comment-details">
+                          <div className="comment-meta">
+                            <span className="comment-author-name">{comm.author_name}</span>
+                            <span>{new Date(comm.created_at).toLocaleDateString()}</span>
+                          </div>
+                          <p className="comment-content">{comm.content}</p>
+                          
+                          {/* Reply Button Trigger */}
+                          {currentUserId && (
+                            <button
+                              onClick={() => {
+                                setReplyingToId(replyingToId === comm.id ? null : comm.id);
+                                setReplyContent("");
+                              }}
+                              style={{ background: "none", border: "none", color: "var(--primary)", fontSize: "0.75rem", fontWeight: "700", display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer", marginTop: "0.5rem", padding: 0 }}
+                            >
+                              <Reply size={12} /> Reply
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Inline Reply Form */}
+                      {replyingToId === comm.id && (
+                        <form 
+                          onSubmit={(e) => handleReplySubmit(e, comm.id)} 
+                          style={{ display: "flex", gap: "0.75rem", marginTop: "1rem", marginLeft: "2.5rem", width: "calc(100% - 2.5rem)" }}
+                        >
+                          <input
+                            type="text"
+                            placeholder={`Reply to ${comm.author_name}...`}
+                            className="form-control"
+                            value={replyContent}
+                            onChange={(e) => setReplyContent(e.target.value)}
+                            required
+                            autoFocus
+                            style={{ padding: "0.5rem 0.75rem", fontSize: "0.85rem" }}
+                          />
+                          <button type="submit" disabled={isReplying} className="btn btn-primary" style={{ padding: "0.5rem 1rem", fontSize: "0.8rem" }}>
+                            Send
+                          </button>
+                          <button 
+                            type="button" 
+                            className="btn btn-secondary" 
+                            onClick={() => setReplyingToId(null)}
+                            style={{ padding: "0.5rem 1rem", fontSize: "0.8rem" }}
+                          >
+                            Cancel
+                          </button>
+                        </form>
+                      )}
+
+                      {/* Replies List */}
+                      {repliesForThisComment.length > 0 && (
+                        <div style={{ marginLeft: "2.5rem", marginTop: "0.75rem", borderLeft: "2px solid var(--surface-border)", paddingLeft: "1.25rem" }}>
+                          {repliesForThisComment.map((reply) => (
+                            <div key={reply.id} className="comment-card" style={{ marginBottom: "1rem", borderBottom: "none", paddingBottom: 0 }}>
+                              {reply.author_image ? (
+                                <img src={reply.author_image} alt={reply.author_name} className="comment-author-avatar" style={{ width: "24px", height: "24px" }} />
+                              ) : (
+                                <div className="comment-author-avatar" style={{ width: "24px", height: "24px", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: "bold", fontSize: "0.7rem" }}>
+                                  {reply.author_name.charAt(0)}
+                                </div>
+                              )}
+                              <div className="comment-details">
+                                <div className="comment-meta">
+                                  <span className="comment-author-name" style={{ fontSize: "0.85rem" }}>{reply.author_name}</span>
+                                  <span style={{ fontSize: "0.75rem" }}>{new Date(reply.created_at).toLocaleDateString()}</span>
+                                </div>
+                                <p className="comment-content" style={{ fontSize: "0.9rem" }}>{reply.content}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
-                  <div className="comment-details">
-                    <div className="comment-meta">
-                      <span className="comment-author-name">{comm.author_name}</span>
-                      <span>{new Date(comm.created_at).toLocaleDateString()}</span>
-                    </div>
-                    <p className="comment-content">{comm.content}</p>
-                  </div>
-                </div>
-              ))
+                  );
+                });
+              })()
             )}
           </div>
         </div>

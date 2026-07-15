@@ -51,6 +51,7 @@ create table public.comments (
     author_name text not null,
     author_image text,
     content text not null,
+    parent_id uuid references public.comments(id) on delete cascade, -- Support threaded replies
     created_at timestamp with time zone default now() not null
 );
 

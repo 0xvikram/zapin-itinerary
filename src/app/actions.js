@@ -517,7 +517,7 @@ export async function toggleVerification(itineraryId, metricType) {
 }
 
 // 6. ADD COMMENT
-export async function addComment(itineraryId, commentContent) {
+export async function addComment(itineraryId, commentContent, parentId = null) {
   const { userId, name, image } = await getUserDetailsHelper();
 
   try {
@@ -529,21 +529,28 @@ export async function addComment(itineraryId, commentContent) {
           author_name: name,
           author_image: image,
           content: commentContent,
+          parent_id: parentId,
           created_at: new Date().toISOString()
         });
       }
       return { success: true };
     }
 
+    const insertData = {
+      itinerary_id: itineraryId,
+      user_id: userId,
+      author_name: name,
+      author_image: image,
+      content: commentContent
+    };
+    
+    if (parentId) {
+      insertData.parent_id = parentId;
+    }
+
     const { error } = await supabase
       .from("comments")
-      .insert({
-        itinerary_id: itineraryId,
-        user_id: userId,
-        author_name: name,
-        author_image: image,
-        content: commentContent
-      });
+      .insert(insertData);
 
     if (error) throw error;
 

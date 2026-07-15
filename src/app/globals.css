@@ -1002,6 +1002,21 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.85rem 1.5rem;
   }
 
+  /* Navbar mobile spacing updates */
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-links {
+    gap: 0.5rem;
+  }
+  
+  .nav-links .btn {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
   /* Explore page headers */
   .explore-header {
     margin-bottom: 1.75rem;

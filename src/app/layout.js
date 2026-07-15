@@ -34,7 +34,7 @@ export default async function RootLayout({ children }) {
                 {userId ? (
                   <>
                     <Link href="/create" className="btn btn-primary">
-                      Post Itinerary
+                      Create
                     </Link>
                     <UserButton afterSignOutUrl="/" />
                   </>
