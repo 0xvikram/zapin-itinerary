@@ -5,7 +5,7 @@ import { Sparkles } from "lucide-react";
 import "./globals.css";
 
 export const metadata = {
-  title: "Itinero - Share & Verify Travel Itineraries",
+  title: "Roam - Share & Verify Travel Itineraries",
   description: "Find verified travel itineraries, verify routes as 'real' or 'accurate', and seamlessly organize your trips. Export itineraries directly to Zapin.",
 };
 
@@ -25,7 +25,7 @@ export default async function RootLayout({ children }) {
           <div className="app-container">
             <header className="navbar">
               <Link href="/" className="nav-logo">
-                Itin<span>ero</span>
+                Ro<span>am</span>
               </Link>
               <nav className="nav-links">
                 <Link href="/explore" className="btn btn-secondary">

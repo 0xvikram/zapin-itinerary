@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${itinerary.title} - Itinero`,
+    title: `${itinerary.title} - Roam`,
     description: itinerary.description,
   };
 }
