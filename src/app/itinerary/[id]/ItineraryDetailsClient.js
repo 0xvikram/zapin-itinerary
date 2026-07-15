@@ -19,7 +19,9 @@ import {
   Download, 
   Send,
   MessageSquare,
-  BadgeAlert
+  BadgeAlert,
+  Share2,
+  ExternalLink
 } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 
@@ -166,6 +168,38 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
         return oldProgress + 20;
       });
     }, 300);
+  };
+
+  // 5. Copy Reddit Markdown
+  const copyRedditMarkdown = () => {
+    let md = `# Travel Itinerary: ${itinerary.title} (${itinerary.duration_days} Days in ${itinerary.location})\n\n`;
+    md += `**Budget Level**: ${itinerary.budget}\n\n`;
+    md += `> ${itinerary.description}\n\n`;
+    md += `## Schedule Details:\n\n`;
+    
+    itinerary.content?.days?.forEach((day) => {
+      md += `### Day ${day.day}: ${day.title}\n`;
+      day.activities?.forEach((act) => {
+        md += `* **${act.time}** - ${act.activity} ${act.notes ? `(*${act.notes}*)` : ""}\n`;
+      });
+      md += `\n`;
+    });
+    
+    md += `---\n`;
+    md += `*Itinerary formatted using [Zapin Itinerary Hub](https://zapin.web). Click here to [verify this itinerary, add comments, or export it directly to your calendar via Zapin](https://zapin.web/itinerary/${itinerary.id}).*`;
+    
+    navigator.clipboard.writeText(md);
+    alert("Reddit-formatted Markdown copied to clipboard!");
+  };
+
+  // 6. Share to Reddit
+  const shareToReddit = () => {
+    const title = encodeURIComponent(`Travel Itinerary: ${itinerary.duration_days} Days in ${itinerary.location}`);
+    const text = encodeURIComponent(
+      `Check out my full day-by-day travel schedule here: ${window.location.origin}/itinerary/${itinerary.id}\n\n` +
+      `Feedback, votes, and verifications are appreciated!`
+    );
+    window.open(`https://www.reddit.com/submit?title=${title}&text=${text}`, "_blank");
   };
 
   return (
@@ -363,6 +397,33 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
               </button>
             </div>
           )}
+        </div>
+
+        {/* Reddit Sharing Box */}
+        <div className="sidebar-box">
+          <h4 style={{ marginBottom: "1rem", fontSize: "1.1rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <Share2 size={18} style={{ color: "#ff4500" }} /> Reddit Share
+          </h4>
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.25rem" }}>
+            Format this itinerary to paste in subreddits or submit a review request link.
+          </p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            <button 
+              onClick={copyRedditMarkdown}
+              className="btn btn-secondary" 
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              <Share2 size={16} /> Copy Reddit Markdown
+            </button>
+            <button 
+              onClick={shareToReddit}
+              className="btn btn-secondary" 
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              <ExternalLink size={16} /> Post to Reddit
+            </button>
+          </div>
         </div>
       </div>
     </div>
