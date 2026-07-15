@@ -231,7 +231,9 @@ export async function getItineraries(query = "", filters = {}) {
       if (query) {
         const q = query.toLowerCase();
         result = result.filter(
-          (it) => it.location.toLowerCase().includes(q) || it.title.toLowerCase().includes(q)
+          (it) => it.location.toLowerCase().includes(q) || 
+                  it.title.toLowerCase().includes(q) ||
+                  (it.description && it.description.toLowerCase().includes(q))
         );
       }
 
@@ -269,7 +271,7 @@ export async function getItineraries(query = "", filters = {}) {
       `);
 
     if (query) {
-      selectQuery = selectQuery.ilike("location", `%${query}%`);
+      selectQuery = selectQuery.or(`location.ilike.%${query}%,title.ilike.%${query}%,description.ilike.%${query}%`);
     }
 
     if (filters.budget && filters.budget !== "All") {

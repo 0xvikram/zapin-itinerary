@@ -48,12 +48,14 @@ export default async function ExplorePage({ searchParams }) {
         {duration !== "All" && <input type="hidden" name="duration" value={duration} />}
         {tab !== "all" && <input type="hidden" name="tab" value={tab} />}
         
-        <Search className="search-icon" size={20} />
+        <button type="submit" className="search-icon-btn" style={{ position: "absolute", left: "1.25rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", padding: 0, cursor: "pointer", color: "var(--text-muted)", display: "flex", alignItems: "center", transition: "color 0.2s" }}>
+          <Search size={20} />
+        </button>
         <input
           type="text"
           name="q"
           defaultValue={query}
-          placeholder="Search by destination (e.g. Delhi, Paris, Tokyo)..."
+          placeholder="Search by destination or keyword (e.g. Delhi, Paris, Fuji)..."
           className="search-input"
         />
       </form>
