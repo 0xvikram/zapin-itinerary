@@ -24,7 +24,7 @@ export default async function RootLayout({ children }) {
         <ClerkProvider>
           <div className="app-container">
             <header className="navbar">
-              <Link href="/" className="nav-logo">Ro<span>am</span></Link>
+              <Link href="/" className="nav-logo">Roam</Link>
               <nav className="nav-links">
                 <Link href="/explore" className="btn btn-secondary">
                   Explore
