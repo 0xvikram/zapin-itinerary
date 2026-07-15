@@ -958,6 +958,43 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
 }
 
+/* Activity Input Form Row */
+.activity-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.activity-time-input {
+  width: 130px !important;
+  flex-shrink: 0;
+}
+
+.activity-text-input {
+  flex: 1.2 !important;
+}
+
+.activity-notes-input {
+  flex: 1.5 !important;
+}
+
+.activity-remove-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.65rem 0.5rem;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+}
+
+.activity-remove-btn:hover {
+  color: var(--danger);
+}
+
 /* ─── MOBILE MEDIA QUERIES ─── */
 @media (max-width: 768px) {
   /* Layout Padding reduction */
@@ -1075,5 +1112,34 @@ h1, h2, h3, h4, h5, h6 {
 
   .itinerary-detail-content h1 {
     font-size: 1.75rem !important;
+  }
+
+  /* Activity row stacking on mobile */
+  .activity-row {
+    flex-direction: column;
+    align-items: stretch;
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--surface-border);
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  
+  .activity-time-input {
+    width: 100% !important;
+    margin-bottom: 0.25rem;
+  }
+  
+  .activity-text-input,
+  .activity-notes-input {
+    width: 100% !important;
+  }
+  
+  .activity-remove-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem;
   }
 }

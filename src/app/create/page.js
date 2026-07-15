@@ -223,19 +223,17 @@ export default function CreateItineraryPage() {
             <div style={{ paddingLeft: "1rem", borderLeft: "2px dashed var(--surface-border)" }}>
               <div style={{ fontSize: "0.85rem", fontWeight: "700", marginBottom: "0.75rem", color: "var(--text-muted)" }}>Activities:</div>
               {day.activities.map((act, actIdx) => (
-                <div key={actIdx} style={{ display: "flex", gap: "0.5rem", marginBottom: "0.75rem", alignItems: "flex-start" }}>
+                <div key={actIdx} className="activity-row">
                   <input
                     type="text"
-                    className="form-control"
-                    style={{ width: "120px" }}
+                    className="form-control activity-time-input"
                     placeholder="Time (e.g. 10:00 AM)"
                     value={act.time}
                     onChange={(e) => handleActivityChange(dayIdx, actIdx, "time", e.target.value)}
                   />
                   <input
                     type="text"
-                    className="form-control"
-                    style={{ flex: 1 }}
+                    className="form-control activity-text-input"
                     placeholder="What did you do?"
                     value={act.activity}
                     onChange={(e) => handleActivityChange(dayIdx, actIdx, "activity", e.target.value)}
@@ -243,8 +241,7 @@ export default function CreateItineraryPage() {
                   />
                   <input
                     type="text"
-                    className="form-control"
-                    style={{ flex: 1 }}
+                    className="form-control activity-notes-input"
                     placeholder="Notes (optional details)"
                     value={act.notes}
                     onChange={(e) => handleActivityChange(dayIdx, actIdx, "notes", e.target.value)}
@@ -252,8 +249,8 @@ export default function CreateItineraryPage() {
                   {day.activities.length > 1 && (
                     <button
                       type="button"
+                      className="activity-remove-btn"
                       onClick={() => handleRemoveActivity(dayIdx, actIdx)}
-                      style={{ background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", padding: "0.5rem" }}
                     >
                       <Trash2 size={16} />
                     </button>
