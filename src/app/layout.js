@@ -2,6 +2,7 @@ import { ClerkProvider, UserButton, SignInButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata = {
@@ -69,6 +70,7 @@ export default async function RootLayout({ children }) {
                 </p>
               </div>
             </footer>
+            <Analytics />
           </div>
         </ClerkProvider>
       </body>
