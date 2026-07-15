@@ -86,13 +86,13 @@ export default async function RootLayout({ children }) {
 
   if (isClerkConfigured) {
     return (
-      <ClerkProvider>
-        <html lang="en">
-          <body>
+      <html lang="en">
+        <body>
+          <ClerkProvider>
             {bodyContent}
-          </body>
-        </html>
-      </ClerkProvider>
+          </ClerkProvider>
+        </body>
+      </html>
     );
   }
 
