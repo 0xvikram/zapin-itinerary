@@ -296,7 +296,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Itinerary Grid & Card Styles */
 .itinerary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
 }
 
@@ -666,4 +666,399 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.15em;
   display: flex;
   border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+/* ─── Homepage Layout Styles ─── */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.home-hero-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  text-align: center;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-hero {
+  padding: 0.95rem 1.85rem;
+  font-size: 0.9rem;
+}
+
+/* ─── Explore Page Layout Styles ─── */
+.explore-container {
+  width: 100%;
+}
+
+.explore-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.explore-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.explore-title span {
+  color: var(--primary);
+}
+
+.explore-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.explore-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--surface-border);
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbars for slick look */
+}
+
+.explore-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid var(--surface-border);
+  background-color: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.tab-btn:hover {
+  background-color: rgba(255,255,255,0.03);
+}
+
+.tab-btn.active {
+  background-color: var(--primary);
+  color: var(--text-inverse);
+  border-color: var(--primary);
+}
+
+/* Filter Panel Styling */
+.filter-panel {
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-item-title {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.filter-chips {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--surface-border);
+  transition: var(--transition);
+}
+
+.filter-chip:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.filter-chip.active {
+  background-color: var(--primary);
+  color: var(--text-inverse);
+  border-color: var(--primary);
+}
+
+.btn-clear-filters {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--text);
+  border: 1px solid var(--surface-border);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-clear-filters:hover {
+  background-color: rgba(255,255,255,0.03);
+  border-color: rgba(255,255,255,0.2);
+}
+
+/* Results header */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.results-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.results-count {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* AI badge & card colors */
+.badge-ai-planner {
+  background-color: rgba(218, 248, 113, 0.15);
+  color: var(--primary);
+  border: 1px solid rgba(218, 248, 113, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ai-card {
+  border-color: rgba(218, 248, 113, 0.25) !important;
+}
+
+.ai-card:hover {
+  border-color: rgba(218, 248, 113, 0.5) !important;
+}
+
+.author-img-ai {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inverse);
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.author-img-placeholder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.card-metrics {
+  display: flex;
+  gap: 1rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  align-items: center;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+}
+
+.empty-state-icon {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ─── MOBILE MEDIA QUERIES ─── */
+@media (max-width: 768px) {
+  /* Layout Padding reduction */
+  .navbar {
+    padding: 1rem 1.25rem;
+  }
+  
+  .main-content {
+    padding: 1.25rem 1.25rem 2.5rem 1.25rem;
+  }
+
+  /* Homepage Hero sizing overrides */
+  .home-container {
+    min-height: 55vh;
+  }
+
+  .hero {
+    padding: 2.5rem 0.5rem 1.5rem 0.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.25rem !important; /* Force smaller size on mobile */
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem !important;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .btn-hero {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
+  }
+
+  /* Explore page headers */
+  .explore-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .explore-title {
+    font-size: 1.6rem;
+  }
+
+  .explore-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .search-container {
+    margin-bottom: 2rem;
+  }
+
+  /* Filter Panel stacking on mobile */
+  .filter-panel {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .filter-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .filter-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .filter-chips {
+    width: 100%;
+  }
+
+  .btn-clear-filters {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Details layout adjustments */
+  .itinerary-detail-content {
+    padding: 1.5rem;
+  }
+
+  .itinerary-detail-content h1 {
+    font-size: 1.75rem !important;
+  }
 }
