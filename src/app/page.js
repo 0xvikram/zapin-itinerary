@@ -12,7 +12,7 @@ export default async function Home({ searchParams }) {
     <div>
       {/* Hero Section */}
       <section className="hero">
-        <h1 className="hero-title">Discover Real Travel Itineraries Verified by the Community</h1>
+        <h1 className="hero-title">Discover Real Travel Itineraries Verified by the <span>Community</span></h1>
         <p className="hero-subtitle">
           Explore day-by-day itineraries, upvote the best guides, verify authentic experiences, and export them directly to your calendar or documents via Zapin.
         </p>

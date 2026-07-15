@@ -24,7 +24,7 @@ export default async function RootLayout({ children }) {
           <div className="app-container">
             <header className="navbar">
               <Link href="/" className="nav-logo">
-                ✈️ Zapin Itinerary Hub
+                ✈️ Zapin <span>Itinerary Hub</span>
               </Link>
               <nav className="nav-links">
                 <Link href="/" className="btn btn-secondary">
