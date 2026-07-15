@@ -98,11 +98,53 @@ function isSupabaseConfigured() {
   );
 }
 
+function isClerkConfigured() {
+  return (
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== "your_clerk_publishable_key"
+  );
+}
+
+// Auth state helper to avoid Clerk validation errors when Clerk is not configured
+async function getUserIdHelper() {
+  if (isClerkConfigured()) {
+    try {
+      const authObj = await auth();
+      return authObj?.userId || "demo-user";
+    } catch (e) {
+      console.warn("Clerk auth retrieve failed:", e.message);
+    }
+  }
+  return "demo-user";
+}
+
+async function getUserDetailsHelper() {
+  if (isClerkConfigured()) {
+    try {
+      const authObj = await auth();
+      const user = await currentUser();
+      if (authObj?.userId && user) {
+        return {
+          userId: authObj.userId,
+          name: user.fullName || user.username || "Traveler",
+          image: user.imageUrl || ""
+        };
+      }
+    } catch (e) {
+      console.warn("Clerk user details retrieve failed:", e.message);
+    }
+  }
+  return {
+    userId: "demo-user",
+    name: "Demo Traveler",
+    image: ""
+  };
+}
+
 // 1. GET ITINERARIES (with search)
 export async function getItineraries(query = "") {
   try {
     if (!isSupabaseConfigured()) {
-      // Return filtered mock data
       if (!query) return MOCK_ITINERARIES;
       return MOCK_ITINERARIES.filter(
         (it) =>
@@ -136,7 +178,6 @@ export async function getItineraries(query = "") {
     }));
   } catch (error) {
     console.error("Error fetching itineraries:", error);
-    // Graceful fallback to mock data
     return MOCK_ITINERARIES;
   }
 }
@@ -177,26 +218,17 @@ export async function getItineraryById(id) {
 
 // 3. CREATE ITINERARY
 export async function createItinerary(formData) {
-  const { userId } = await auth();
-  const user = await currentUser();
-
-  if (!userId) {
-    throw new Error("You must be signed in to create an itinerary.");
-  }
+  const { userId, name, image } = await getUserDetailsHelper();
 
   const { title, location, duration_days, budget, description, content } = formData;
 
-  const author_name = user.fullName || user.username || "Anonymous Traveler";
-  const author_image = user.imageUrl || "";
-
   try {
     if (!isSupabaseConfigured()) {
-      // Simulate creation locally by updating mock array in-memory for session (fallback only)
       const newItinerary = {
         id: `mock-${Date.now()}`,
         user_id: userId,
-        author_name,
-        author_image,
+        author_name: name,
+        author_image: image,
         title,
         location,
         duration_days: parseInt(duration_days),
@@ -216,8 +248,8 @@ export async function createItinerary(formData) {
       .from("itineraries")
       .insert({
         user_id: userId,
-        author_name,
-        author_image,
+        author_name: name,
+        author_image: image,
         title,
         location,
         duration_days: parseInt(duration_days),
@@ -240,20 +272,18 @@ export async function createItinerary(formData) {
 
 // 4. TOGGLE VOTE (UPVOTE / DOWNVOTE)
 export async function toggleVote(itineraryId, voteType) {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Must be signed in");
+  const userId = await getUserIdHelper();
 
   try {
     if (!isSupabaseConfigured() || itineraryId.startsWith("mock-")) {
-      // Handle local mock action
       const item = MOCK_ITINERARIES.find((it) => it.id === itineraryId);
       if (item) {
         const existingIdx = item.votes.findIndex((v) => v.user_id === userId);
         if (existingIdx > -1) {
           if (item.votes[existingIdx].vote_type === voteType) {
-            item.votes.splice(existingIdx, 1); // remove vote
+            item.votes.splice(existingIdx, 1);
           } else {
-            item.votes[existingIdx].vote_type = voteType; // change vote
+            item.votes[existingIdx].vote_type = voteType;
           }
         } else {
           item.votes.push({ user_id: userId, vote_type: voteType });
@@ -262,7 +292,6 @@ export async function toggleVote(itineraryId, voteType) {
       return { success: true };
     }
 
-    // 1. Check if vote exists
     const { data: existing } = await supabase
       .from("itinerary_votes")
       .select()
@@ -272,14 +301,12 @@ export async function toggleVote(itineraryId, voteType) {
 
     if (existing) {
       if (existing.vote_type === voteType) {
-        // Delete vote if same
         await supabase
           .from("itinerary_votes")
           .delete()
           .eq("itinerary_id", itineraryId)
           .eq("user_id", userId);
       } else {
-        // Update vote if different
         await supabase
           .from("itinerary_votes")
           .update({ vote_type: voteType })
@@ -287,7 +314,6 @@ export async function toggleVote(itineraryId, voteType) {
           .eq("user_id", userId);
       }
     } else {
-      // Insert vote
       await supabase
         .from("itinerary_votes")
         .insert({ itinerary_id: itineraryId, user_id: userId, vote_type: voteType });
@@ -304,8 +330,7 @@ export async function toggleVote(itineraryId, voteType) {
 
 // 5. TOGGLE VERIFICATION (IS REAL / IS ACCURATE)
 export async function toggleVerification(itineraryId, metricType) {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Must be signed in");
+  const userId = await getUserIdHelper();
 
   try {
     if (!isSupabaseConfigured() || itineraryId.startsWith("mock-")) {
@@ -360,13 +385,7 @@ export async function toggleVerification(itineraryId, metricType) {
 
 // 6. ADD COMMENT
 export async function addComment(itineraryId, commentContent) {
-  const { userId } = await auth();
-  const user = await currentUser();
-
-  if (!userId) throw new Error("Must be signed in");
-
-  const author_name = user.fullName || user.username || "Anonymous Traveler";
-  const author_image = user.imageUrl || "";
+  const { userId, name, image } = await getUserDetailsHelper();
 
   try {
     if (!isSupabaseConfigured() || itineraryId.startsWith("mock-")) {
@@ -374,8 +393,8 @@ export async function addComment(itineraryId, commentContent) {
       if (item) {
         item.comments.unshift({
           id: `comment-${Date.now()}`,
-          author_name,
-          author_image,
+          author_name: name,
+          author_image: image,
           content: commentContent,
           created_at: new Date().toISOString()
         });
@@ -388,8 +407,8 @@ export async function addComment(itineraryId, commentContent) {
       .insert({
         itinerary_id: itineraryId,
         user_id: userId,
-        author_name,
-        author_image,
+        author_name: name,
+        author_image: image,
         content: commentContent
       });
 

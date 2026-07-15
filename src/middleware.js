@@ -1,18 +1,31 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+
+const isClerkConfigured = 
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && 
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY !== "your_clerk_publishable_key";
 
 const isPublicRoute = createRouteMatcher([
   "/",
   "/itinerary/(.*)",
   "/sign-in(.*)",
   "/sign-up(.*)",
-  "/api/itineraries(.*)", // public search api if needed
+  "/api/itineraries(.*)",
 ]);
 
-export default clerkMiddleware((auth, request) => {
-  if (!isPublicRoute(request)) {
-    auth().protect();
+export default function middleware(request, event) {
+  // Gracefully bypass Clerk middleware in Demo Mode if keys are not set
+  if (!isClerkConfigured) {
+    return NextResponse.next();
   }
-});
+
+  // Otherwise, run Clerk route protection
+  return clerkMiddleware((auth, req) => {
+    if (!isPublicRoute(req)) {
+      auth().protect();
+    }
+  })(request, event);
+}
 
 export const config = {
   matcher: [
