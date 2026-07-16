@@ -12,7 +12,7 @@ export default function Home() {
             Verified by the <span>Community</span>.
           </h1>
           <p className="hero-subtitle">
-            Explore authentic community itineraries. Capture memories and share group photos instantly via zapin.fun.
+            Explore authentic community itineraries. Capture memories and share group photos instantly via <span style={{ color: "var(--primary)", fontWeight: "700" }}>zapin.fun</span>.
           </p>
         </section>
 
