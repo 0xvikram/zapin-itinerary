@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { 
   toggleVote, 
   toggleVerification, 
-  addComment 
+  addComment,
+  deleteItinerary
 } from "../../actions";
 import { 
   ThumbsUp, 
@@ -50,6 +52,7 @@ const formatTime = (timeStr) => {
 
 export default function ItineraryDetailsClient({ initialItinerary, currentUserId }) {
   const { isLoaded, userId } = useAuth();
+  const router = useRouter();
   const [itinerary, setItinerary] = useState(initialItinerary);
   const [commentContent, setCommentContent] = useState("");
   const [isCommenting, setIsCommenting] = useState(false);
@@ -223,6 +226,21 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
         return oldProgress + 20;
       });
     }, 300);
+  };
+
+  // 4b. Delete Itinerary Handler
+  const handleDeleteItinerary = async () => {
+    if (!confirm("Are you sure you want to permanently delete this itinerary? This action cannot be undone.")) {
+      return;
+    }
+    
+    const result = await deleteItinerary(itinerary.id);
+    if (result.success) {
+      alert("Itinerary deleted successfully.");
+      router.push("/explore");
+    } else {
+      alert(result.error || "Failed to delete itinerary.");
+    }
   };
 
   // 5. Copy Reddit Markdown
@@ -601,6 +619,25 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
             </button>
           </div>
         </div>
+
+        {/* Owner Management Controls */}
+        {currentUserId && currentUserId === itinerary.user_id && (
+          <div className="sidebar-box" style={{ borderColor: "rgba(239, 68, 68, 0.25)" }}>
+            <h4 style={{ color: "var(--danger)", display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", fontFamily: "var(--font-title)", fontSize: "1.1rem" }}>
+              <BadgeAlert size={18} /> Manage Itinerary
+            </h4>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.25rem" }}>
+              As the author of this travel guide, you can delete it permanently from the platform.
+            </p>
+            <button 
+              onClick={handleDeleteItinerary}
+              className="btn btn-danger" 
+              style={{ width: "100%", justifyContent: "center" }}
+            >
+              Delete Guide
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

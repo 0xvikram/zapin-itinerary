@@ -133,6 +133,77 @@ const MOCK_ITINERARIES = [
     verifications: [],
     comments: []
   },
+  // 4b. AI Generated - International (Tokyo & Kyoto)
+  {
+    id: "mock-ai-5",
+    user_id: "ai-planner",
+    author_name: "Itinero AI",
+    author_image: "",
+    title: "Tokyo & Kyoto Discovery: Shrines & Neon Lights",
+    location: "Tokyo & Kyoto, Japan",
+    duration_days: 6,
+    budget: "Mid-range",
+    description: "Experience the contrast between future and past. Explore Shibuya and Akihabara in Tokyo, then take the Bullet Train to Kyoto for historical bamboo forests and temples.",
+    content: {
+      days: [
+        {
+          day: 1,
+          title: "Tokyo High-Tech & Views",
+          activities: [
+            { time: "10:00", activity: "Shibuya Sky Observatory", notes: "Book tickets online for sunset slot. Unbelievable 360 views.", mapLink: "https://maps.google.com/?q=Shibuya+Sky" },
+            { time: "14:00", activity: "Akihabara Electric Town", notes: "Explore anime shops, retro gaming, and maid cafes.", mapLink: "https://maps.google.com/?q=Akihabara" }
+          ]
+        },
+        {
+          day: 2,
+          title: "Kyoto Historic Shrines",
+          activities: [
+            { time: "07:30", activity: "Fushimi Inari Shrine walking", notes: "Walk through the thousands of vermilion torii gates. Beat the crowds by arriving early.", mapLink: "https://maps.google.com/?q=Fushimi+Inari+Taisha" },
+            { time: "13:00", activity: "Kinkaku-ji (Golden Pavilion)", notes: "Breathtaking Zen temple covered in gold leaf reflecting on the pond.", mapLink: "https://maps.google.com/?q=Kinkaku-ji" }
+          ]
+        }
+      ]
+    },
+    created_at: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    votes: [],
+    verifications: [],
+    comments: []
+  },
+  // 4c. AI Generated - National (Kerala)
+  {
+    id: "mock-ai-6",
+    user_id: "ai-planner",
+    author_name: "Itinero AI",
+    author_image: "",
+    title: "Kerala Backwaters & Tea Gardens Escape",
+    location: "Munnar & Alleppey, Kerala, India",
+    duration_days: 4,
+    budget: "Mid-range",
+    description: "Relax in 'God's Own Country'. Tour the rolling tea plantations in Munnar and cruise the serene, palm-fringed backwaters of Alleppey on a traditional houseboat.",
+    content: {
+      days: [
+        {
+          day: 1,
+          title: "Munnar Tea Estates & Waterfalls",
+          activities: [
+            { time: "09:00", activity: "Kolukkumalai Tea Estate Jeep Safari", notes: "World's highest tea estate. Absolutely stunning vistas.", mapLink: "https://maps.google.com/?q=Kolukkumalai+Tea+Estate" },
+            { time: "14:00", activity: "Attukad Waterfalls trek", notes: "Scenic waterfall surrounded by hills and dense forests.", mapLink: "https://maps.google.com/?q=Attukad+Waterfalls" }
+          ]
+        },
+        {
+          day: 2,
+          title: "Alleppey Houseboat Cruise",
+          activities: [
+            { time: "12:00", activity: "Board Houseboat at Alleppey", notes: "Cruise through the Vembanad lake. Traditional Kerala lunch served on board.", mapLink: "https://maps.google.com/?q=Alappuzha+Houseboats" }
+          ]
+        }
+      ]
+    },
+    created_at: new Date(Date.now() - 4.5 * 24 * 60 * 60 * 1000).toISOString(),
+    votes: [],
+    verifications: [],
+    comments: []
+  },
   // 5. User Generated - Community
   {
     id: "mock-1",
@@ -558,6 +629,44 @@ export async function addComment(itineraryId, commentContent, parentId = null) {
     return { success: true };
   } catch (error) {
     console.error("Error adding comment:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+// 7. DELETE ITINERARY
+export async function deleteItinerary(itineraryId) {
+  const { userId } = await getUserDetailsHelper();
+  if (!userId) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  try {
+    if (!isSupabaseConfigured() || itineraryId.startsWith("mock-")) {
+      const idx = MOCK_ITINERARIES.findIndex((it) => it.id === itineraryId);
+      if (idx > -1) {
+        // If it's a mock guide, check mock owner
+        if (MOCK_ITINERARIES[idx].user_id === userId) {
+          MOCK_ITINERARIES.splice(idx, 1);
+          return { success: true };
+        }
+        return { success: false, error: "You do not own this itinerary." };
+      }
+      return { success: false, error: "Itinerary not found." };
+    }
+
+    const { error, count } = await supabase
+      .from("itineraries")
+      .delete({ count: "exact" })
+      .eq("id", itineraryId)
+      .eq("user_id", userId);
+
+    if (error) throw error;
+
+    revalidatePath("/");
+    revalidatePath("/explore");
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting itinerary:", error);
     return { success: false, error: error.message };
   }
 }
