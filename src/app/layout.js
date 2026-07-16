@@ -80,6 +80,9 @@ export default async function RootLayout({ children }) {
                 
                 {userId ? (
                   <>
+                    <Link href="/profile" className="btn btn-secondary">
+                      Profile
+                    </Link>
                     <Link href="/create" className="btn btn-primary">
                       Create
                     </Link>

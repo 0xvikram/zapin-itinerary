@@ -670,3 +670,92 @@ export async function deleteItinerary(itineraryId) {
     return { success: false, error: error.message };
   }
 }
+
+// 8. UPDATE ITINERARY
+export async function updateItinerary(itineraryId, formData) {
+  const { userId } = await getUserDetailsHelper();
+  if (!userId) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  const { title, location, duration_days, budget, description, content } = formData;
+
+  try {
+    if (!isSupabaseConfigured() || itineraryId.startsWith("mock-")) {
+      const idx = MOCK_ITINERARIES.findIndex((it) => it.id === itineraryId);
+      if (idx > -1) {
+        if (MOCK_ITINERARIES[idx].user_id === userId) {
+          MOCK_ITINERARIES[idx] = {
+            ...MOCK_ITINERARIES[idx],
+            title,
+            location,
+            duration_days: parseInt(duration_days),
+            budget,
+            description,
+            content: typeof content === "string" ? JSON.parse(content) : content
+          };
+          return { success: true };
+        }
+        return { success: false, error: "You do not own this itinerary." };
+      }
+      return { success: false, error: "Itinerary not found." };
+    }
+
+    const { error } = await supabase
+      .from("itineraries")
+      .update({
+        title,
+        location,
+        duration_days: parseInt(duration_days),
+        budget,
+        description,
+        content: typeof content === "string" ? JSON.parse(content) : content
+      })
+      .eq("id", itineraryId)
+      .eq("user_id", userId);
+
+    if (error) throw error;
+
+    revalidatePath(`/itinerary/${itineraryId}`);
+    revalidatePath("/explore");
+    return { success: true };
+  } catch (error) {
+    console.error("Error updating itinerary:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+// 9. GET USER ITINERARIES
+export async function getUserItineraries() {
+  const { userId } = await getUserDetailsHelper();
+  if (!userId) return [];
+
+  try {
+    if (!isSupabaseConfigured()) {
+      return MOCK_ITINERARIES.filter((it) => it.user_id === userId);
+    }
+
+    const { data, error } = await supabase
+      .from("itineraries")
+      .select(`
+        id,
+        user_id,
+        author_name,
+        author_image,
+        title,
+        location,
+        duration_days,
+        budget,
+        description,
+        created_at
+      `)
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data || [];
+  } catch (error) {
+    console.error("Error fetching user itineraries:", error);
+    return MOCK_ITINERARIES.filter((it) => it.user_id === userId);
+  }
+}
