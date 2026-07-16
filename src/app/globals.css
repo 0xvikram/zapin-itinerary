@@ -1409,3 +1409,120 @@ select.form-control option {
     padding: 0.85rem 1.25rem;
   }
 }
+
+/* ─── AI Creator Tooling ─── */
+.creator-layout-split {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.ai-toolbox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: sticky;
+  top: 2rem;
+}
+
+.ai-card {
+  background: linear-gradient(135deg, rgba(218, 248, 113, 0.03), rgba(0, 0, 0, 0.2));
+  border: 1px solid rgba(218, 248, 113, 0.15);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+}
+
+.ai-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.75rem;
+}
+
+.ai-card-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.ai-textarea {
+  min-height: 120px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ai-drag-area {
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.ai-drag-area.active, .ai-drag-area:hover {
+  border-color: var(--primary);
+  background-color: rgba(218, 248, 113, 0.03);
+  color: white;
+}
+
+.ai-suggestion-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.ai-suggestion-header {
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ai-suggestion-apply {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--primary);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ai-suggestion-apply:hover {
+  text-decoration: underline;
+  color: var(--primary-hover);
+}
+
+@media (max-width: 1024px) {
+  .creator-layout-split {
+    grid-template-columns: 1fr;
+  }
+  .ai-toolbox {
+    position: static;
+  }
+}
