@@ -130,6 +130,18 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.04em;
 }
 
+.navbar-top-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -1258,15 +1270,43 @@ select.form-control option {
 
   /* Navbar mobile spacing updates */
   .navbar {
+    flex-direction: column;
+    align-items: stretch;
     padding: 0.75rem 1rem;
+    gap: 0.75rem;
+  }
+  
+  .navbar-top-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-nav-create {
+    padding: 0.4rem 0.75rem !important;
+    font-size: 0.75rem !important;
   }
   
   .nav-links {
-    gap: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.65rem;
+    gap: 0.35rem;
   }
   
   .nav-links .btn {
-    padding: 0.45rem 0.65rem;
+    flex: 1;
+    justify-content: center;
+    padding: 0.45rem 0.25rem;
     font-size: 0.75rem;
     letter-spacing: 0.02em;
   }

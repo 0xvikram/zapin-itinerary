@@ -72,7 +72,24 @@ export default async function RootLayout({ children }) {
         >
           <div className="app-container">
             <header className="navbar">
-              <Link href="/" className="nav-logo">Roam</Link>
+              <div className="navbar-top-row">
+                <Link href="/" className="nav-logo">Roam</Link>
+                <div className="navbar-actions">
+                  {userId ? (
+                    <>
+                      <Link href="/create" className="btn btn-primary btn-nav-create">
+                        Create
+                      </Link>
+                      <UserButton afterSignOutUrl="/" />
+                    </>
+                  ) : (
+                    <SignInButton mode="modal">
+                      <button className="btn btn-primary btn-nav-create">Sign In</button>
+                    </SignInButton>
+                  )}
+                </div>
+              </div>
+              
               <nav className="nav-links">
                 <Link href="/explore" className="btn btn-secondary">
                   Explore
@@ -80,21 +97,10 @@ export default async function RootLayout({ children }) {
                 <Link href="/feedback" className="btn btn-secondary">
                   Feedback
                 </Link>
-                
-                {userId ? (
-                  <>
-                    <Link href="/profile" className="btn btn-secondary">
-                      Profile
-                    </Link>
-                    <Link href="/create" className="btn btn-primary">
-                      Create
-                    </Link>
-                    <UserButton afterSignOutUrl="/" />
-                  </>
-                ) : (
-                  <SignInButton mode="modal">
-                    <button className="btn btn-primary">Sign In</button>
-                  </SignInButton>
+                {userId && (
+                  <Link href="/profile" className="btn btn-secondary">
+                    Profile
+                  </Link>
                 )}
               </nav>
             </header>
