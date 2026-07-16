@@ -77,7 +77,11 @@ export default async function RootLayout({ children }) {
               <input type="checkbox" id="nav-toggle" className="nav-toggle" style={{ display: "none" }} />
               
               <div className="navbar-right">
-                {userId && <UserButton afterSignOutUrl="/" />}
+                {userId && (
+                  <div className="user-btn-mobile">
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                )}
                 <label htmlFor="nav-toggle" className="nav-toggle-label">
                   <span></span>
                   <span></span>
@@ -100,6 +104,9 @@ export default async function RootLayout({ children }) {
                     <Link href="/create" className="btn btn-primary btn-nav-create">
                       Create
                     </Link>
+                    <div className="user-btn-desktop">
+                      <UserButton afterSignOutUrl="/" />
+                    </div>
                   </>
                 ) : (
                   <SignInButton mode="modal">
