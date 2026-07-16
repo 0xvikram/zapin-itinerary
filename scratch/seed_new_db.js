@@ -34,7 +34,7 @@ if (!url || !anonKey) {
 const newItineraries = [
   {
     user_id: "ai-planner",
-    author_name: "Itinero AI",
+    author_name: "Roam AI",
     author_image: "",
     title: "Tokyo & Kyoto Discovery: Shrines & Neon Lights",
     location: "Tokyo & Kyoto, Japan",
@@ -64,7 +64,7 @@ const newItineraries = [
   },
   {
     user_id: "ai-planner",
-    author_name: "Itinero AI",
+    author_name: "Roam AI",
     author_image: "",
     title: "Kerala Backwaters & Tea Gardens Escape",
     location: "Munnar & Alleppey, Kerala, India",
@@ -86,6 +86,66 @@ const newItineraries = [
           title: "Alleppey Houseboat Cruise",
           activities: [
             { time: "12:00", activity: "Board Houseboat at Alleppey", notes: "Cruise through the Vembanad lake. Traditional Kerala lunch served on board.", mapLink: "https://maps.google.com/?q=Alappuzha+Houseboats" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    user_id: "ai-planner",
+    author_name: "Roam AI",
+    author_image: "",
+    title: "New York City Classic Landmarks & Vibe",
+    location: "New York City, New York, USA",
+    duration_days: 4,
+    budget: "Mid-range",
+    description: "Experience the ultimate Big Apple trip. Walk across the Brooklyn Bridge, tour the skyscrapers of Midtown Manhattan, and relax in Central Park.",
+    content: {
+      days: [
+        {
+          day: 1,
+          title: "Midtown Skyscrapers & Times Square",
+          activities: [
+            { time: "09:00 AM", activity: "Empire State Building Observatory", notes: "Go early to catch clear views of Manhattan.", mapLink: "https://maps.google.com/?q=Empire+State+Building" },
+            { time: "01:00 PM", activity: "Walk through Times Square & Broadway", notes: "Incredible energy, perfect for pictures.", mapLink: "https://maps.google.com/?q=Times+Square" }
+          ]
+        },
+        {
+          day: 2,
+          title: "Central Park & Museums",
+          activities: [
+            { time: "10:00 AM", activity: "The Metropolitan Museum of Art (The Met)", notes: "Spend a few hours exploring the historical collections.", mapLink: "https://maps.google.com/?q=The+Metropolitan+Museum+of+Art" },
+            { time: "02:30 PM", activity: "Central Park Row Boats", notes: "Rent a classic rowboat at the Loeb Boathouse.", mapLink: "https://maps.google.com/?q=Central+Park" }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    user_id: "ai-planner",
+    author_name: "Roam AI",
+    author_image: "",
+    title: "Bali Tropical Culture & Beach Loop",
+    location: "Bali, Indonesia",
+    duration_days: 5,
+    budget: "Budget",
+    description: "A gorgeous 5-day route through Ubud's temples, rice terraces, waterfall trails, and Seminyak sunset beaches.",
+    content: {
+      days: [
+        {
+          day: 1,
+          title: "Ubud Culture & Sacred Forest",
+          activities: [
+            { time: "09:00 AM", activity: "Sacred Monkey Forest Sanctuary", notes: "Keep your belongings secure! Beautiful ancient temple paths.", mapLink: "https://maps.google.com/?q=Sacred+Monkey+Forest+Sanctuary" },
+            { time: "02:00 PM", activity: "Tegallalang Rice Terraces walk", notes: "Stunning scenery, perfect swing spots.", mapLink: "https://maps.google.com/?q=Tegallalang+Rice+Terraces" }
+          ]
+        },
+        {
+          day: 2,
+          title: "Waterfalls & Sunset Beach",
+          activities: [
+            { time: "10:00 AM", activity: "Tegenungan Waterfall trek", notes: "Enjoy the refreshing breeze and take photos near the pool.", mapLink: "https://maps.google.com/?q=Tegenungan+Waterfall" },
+            { time: "05:00 PM", activity: "Seminyak Beach Sunset", notes: "Relax at a beach club with a coconut.", mapLink: "https://maps.google.com/?q=Seminyak+Beach" }
           ]
         }
       ]
