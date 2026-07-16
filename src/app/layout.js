@@ -104,7 +104,7 @@ export default async function RootLayout({ children }) {
             <div className="marquee-ribbon" style={{ marginTop: "auto" }}>
               <div className="animate-marquee">
                 <span>
-                  {Array(10).fill("COMMUNITY VERIFIED • NO MORE PHOTO SPAM • SHARE GROUP PHOTOS INSTANTLY VIA ZAPIN.FUN • ZERO MANUAL SORTING • ").join("")}
+                  {Array(8).fill("COMMUNITY VERIFIED • SHARE GROUP PHOTOS VIA ZAPIN.FUN • ZERO MANUAL SORTING • ").join("")}
                 </span>
               </div>
             </div>
