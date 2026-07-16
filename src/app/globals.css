@@ -958,12 +958,28 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
 }
 
+/* Activity Card Form Container */
+.activity-input-card {
+  background-color: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--surface-border);
+  padding: 1.25rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
 /* Activity Input Form Row */
 .activity-row {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   align-items: flex-start;
+  width: 100%;
+}
+
+.activity-details-row {
+  display: flex;
+  gap: 0.5rem;
   width: 100%;
 }
 
@@ -993,6 +1009,41 @@ h1, h2, h3, h4, h5, h6 {
 
 .activity-remove-btn:hover {
   color: var(--danger);
+}
+
+/* Timeline Link Badges */
+.activity-link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.activity-link-badge.maps {
+  color: var(--primary);
+  background: rgba(218, 248, 113, 0.08);
+  border: 1px solid rgba(218, 248, 113, 0.2);
+}
+
+.activity-link-badge.maps:hover {
+  border-color: var(--primary);
+  background: rgba(218, 248, 113, 0.15);
+}
+
+.activity-link-badge.web {
+  color: white;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--surface-border);
+}
+
+.activity-link-badge.web:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* ─── MOBILE MEDIA QUERIES ─── */
@@ -1114,21 +1165,31 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.75rem !important;
   }
 
-  /* Activity row stacking on mobile */
+  /* Activity input card stacking on mobile */
+  .activity-input-card {
+    padding: 0.75rem;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+  }
+
   .activity-row {
     flex-direction: column;
     align-items: stretch;
-    background-color: rgba(255, 255, 255, 0.01);
-    border: 1px solid var(--surface-border);
-    padding: 0.75rem;
-    border-radius: var(--radius-sm);
-    margin-bottom: 1.25rem;
-    position: relative;
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  
+  .activity-details-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
   }
   
   .activity-time-input {
     width: 100% !important;
-    margin-bottom: 0.25rem;
   }
   
   .activity-text-input,
@@ -1141,5 +1202,6 @@ h1, h2, h3, h4, h5, h6 {
     top: 0.5rem;
     right: 0.5rem;
     padding: 0.25rem;
+    z-index: 5;
   }
 }

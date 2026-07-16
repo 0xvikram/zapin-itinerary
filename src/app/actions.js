@@ -23,23 +23,23 @@ const MOCK_ITINERARIES = [
           day: 1,
           title: "Historic Delhi Sights",
           activities: [
-            { time: "09:00 AM", activity: "Qutub Minar & Lotus Temple", notes: "Start early to beat the crowds at the Minar." },
-            { time: "02:00 PM", activity: "Humayun's Tomb", notes: "The precursor to the Taj Mahal architecture. Beautiful gardens." }
+            { time: "09:00 AM", activity: "Qutub Minar & Lotus Temple", notes: "Start early to beat the crowds at the Minar.", mapLink: "https://maps.google.com/?q=Qutub+Minar" },
+            { time: "02:00 PM", activity: "Humayun's Tomb", notes: "The precursor to the Taj Mahal architecture. Beautiful gardens.", mapLink: "https://maps.google.com/?q=Humayun's+Tomb" }
           ]
         },
         {
           day: 2,
           title: "Taj Mahal & Agra Fort",
           activities: [
-            { time: "05:30 AM", activity: "Sunrise at Taj Mahal", notes: "Breathtaking views. Queue up at 5:00 AM at the East Gate." },
-            { time: "11:00 AM", activity: "Agra Fort Exploration", notes: "Tour the red sandstone walled city of the Mughal Emperors." }
+            { time: "05:30 AM", activity: "Sunrise at Taj Mahal", notes: "Breathtaking views. Queue up at 5:00 AM at the East Gate.", mapLink: "https://maps.google.com/?q=Taj+Mahal" },
+            { time: "11:00 AM", activity: "Agra Fort Exploration", notes: "Tour the red sandstone walled city of the Mughal Emperors.", mapLink: "https://maps.google.com/?q=Agra+Fort" }
           ]
         },
         {
           day: 3,
           title: "The Pink City of Jaipur",
           activities: [
-            { time: "10:00 AM", activity: "Amber Palace", notes: "Take a jeep up to the fort. Don't miss the Sheesh Mahal (Mirror Palace)." }
+            { time: "10:00 AM", activity: "Amber Palace", notes: "Take a jeep up to the fort. Don't miss the Sheesh Mahal (Mirror Palace).", mapLink: "https://maps.google.com/?q=Amber+Palace" }
           ]
         }
       ]
@@ -66,8 +66,8 @@ const MOCK_ITINERARIES = [
           day: 1,
           title: "Sene River & Eiffel Tower",
           activities: [
-            { time: "10:00 AM", activity: "Louvre Museum", notes: "Book tickets online weeks in advance. Focus on the Denon wing." },
-            { time: "04:00 PM", activity: "Seine Cruise", notes: "Relaxing 1-hour cruise starting near the Eiffel Tower." }
+            { time: "10:00 AM", activity: "Louvre Museum", notes: "Book tickets online weeks in advance. Focus on the Denon wing.", mapLink: "https://maps.google.com/?q=Louvre+Museum", siteUrl: "https://www.louvre.fr/en" },
+            { time: "04:00 PM", activity: "Seine Cruise", notes: "Relaxing 1-hour cruise starting near the Eiffel Tower.", mapLink: "https://maps.google.com/?q=Seine+River+Cruise+Paris" }
           ]
         }
       ]

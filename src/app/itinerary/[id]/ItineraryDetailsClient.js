@@ -286,7 +286,33 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
                   <div key={actIdx} className="activity-card">
                     <div className="activity-time">{act.time}</div>
                     <div style={{ fontWeight: "700", marginBottom: "0.25rem" }}>{act.activity}</div>
-                    {act.notes && <div style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>{act.notes}</div>}
+                    {act.notes && <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>{act.notes}</div>}
+                    
+                    {/* Maps & Website Links */}
+                    {(act.mapLink || act.siteUrl) && (
+                      <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
+                        {act.mapLink && (
+                          <a 
+                            href={act.mapLink} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="activity-link-badge maps"
+                          >
+                            <MapPin size={12} /> Google Maps
+                          </a>
+                        )}
+                        {act.siteUrl && (
+                          <a 
+                            href={act.siteUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="activity-link-badge web"
+                          >
+                            <ExternalLink size={12} /> Website
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

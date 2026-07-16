@@ -6,8 +6,8 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata = {
-  title: "Roam - Share & Verify Travel Itineraries",
-  description: "Find verified travel itineraries, verify routes as 'real' or 'accurate', and seamlessly organize your trips. Export itineraries directly to Zapin.",
+  title: "Roam - Community Verified Travel Itineraries",
+  description: "Ditch the photospam. Roam lets you explore community-voted travel itineraries, track real routes, verify trips, add interactive maps and booking links, and instantly sync schedules to your calendar via Zapin.",
 };
 
 export default async function RootLayout({ children }) {

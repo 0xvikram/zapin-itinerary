@@ -18,7 +18,7 @@ export default function CreateItineraryPage() {
     {
       day: 1,
       title: "First Day Exploration",
-      activities: [{ time: "09:00 AM", activity: "Arrive and Check-in", notes: "" }]
+      activities: [{ time: "09:00 AM", activity: "Arrive and Check-in", notes: "", mapLink: "", siteUrl: "" }]
     }
   ]);
 
@@ -30,7 +30,7 @@ export default function CreateItineraryPage() {
       {
         day: nextDayNum,
         title: `Day ${nextDayNum} Schedule`,
-        activities: [{ time: "09:00 AM", activity: "", notes: "" }]
+        activities: [{ time: "09:00 AM", activity: "", notes: "", mapLink: "", siteUrl: "" }]
       }
     ]);
   };
@@ -57,7 +57,7 @@ export default function CreateItineraryPage() {
   // 4. Add activity to a day
   const handleAddActivity = (dayIndex) => {
     const newDays = [...days];
-    newDays[dayIndex].activities.push({ time: "12:00 PM", activity: "", notes: "" });
+    newDays[dayIndex].activities.push({ time: "12:00 PM", activity: "", notes: "", mapLink: "", siteUrl: "" });
     setDays(newDays);
   };
 
@@ -223,38 +223,61 @@ export default function CreateItineraryPage() {
             <div style={{ paddingLeft: "1rem", borderLeft: "2px dashed var(--surface-border)" }}>
               <div style={{ fontSize: "0.85rem", fontWeight: "700", marginBottom: "0.75rem", color: "var(--text-muted)" }}>Activities:</div>
               {day.activities.map((act, actIdx) => (
-                <div key={actIdx} className="activity-row">
-                  <input
-                    type="text"
-                    className="form-control activity-time-input"
-                    placeholder="Time (e.g. 10:00 AM)"
-                    value={act.time}
-                    onChange={(e) => handleActivityChange(dayIdx, actIdx, "time", e.target.value)}
-                  />
-                  <input
-                    type="text"
-                    className="form-control activity-text-input"
-                    placeholder="What did you do?"
-                    value={act.activity}
-                    onChange={(e) => handleActivityChange(dayIdx, actIdx, "activity", e.target.value)}
-                    required
-                  />
-                  <input
-                    type="text"
-                    className="form-control activity-notes-input"
-                    placeholder="Notes (optional details)"
-                    value={act.notes}
-                    onChange={(e) => handleActivityChange(dayIdx, actIdx, "notes", e.target.value)}
-                  />
-                  {day.activities.length > 1 && (
-                    <button
-                      type="button"
-                      className="activity-remove-btn"
-                      onClick={() => handleRemoveActivity(dayIdx, actIdx)}
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  )}
+                <div key={actIdx} className="activity-input-card">
+                  {/* Row 1: Time, Title, Notes & Delete */}
+                  <div className="activity-row">
+                    <input
+                      type="text"
+                      className="form-control activity-time-input"
+                      placeholder="Time (e.g. 10:00 AM)"
+                      value={act.time}
+                      onChange={(e) => handleActivityChange(dayIdx, actIdx, "time", e.target.value)}
+                    />
+                    <input
+                      type="text"
+                      className="form-control activity-text-input"
+                      placeholder="What did you do?"
+                      value={act.activity}
+                      onChange={(e) => handleActivityChange(dayIdx, actIdx, "activity", e.target.value)}
+                      required
+                    />
+                    <input
+                      type="text"
+                      className="form-control activity-notes-input"
+                      placeholder="Notes (optional details)"
+                      value={act.notes}
+                      onChange={(e) => handleActivityChange(dayIdx, actIdx, "notes", e.target.value)}
+                    />
+                    {day.activities.length > 1 && (
+                      <button
+                        type="button"
+                        className="activity-remove-btn"
+                        onClick={() => handleRemoveActivity(dayIdx, actIdx)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
+                  </div>
+                  
+                  {/* Row 2: Maps and Site URLs */}
+                  <div className="activity-details-row">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Google Maps URL (optional)"
+                      value={act.mapLink || ""}
+                      onChange={(e) => handleActivityChange(dayIdx, actIdx, "mapLink", e.target.value)}
+                      style={{ fontSize: "0.8rem", padding: "0.5rem 0.75rem" }}
+                    />
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Website / Ticket URL (optional)"
+                      value={act.siteUrl || ""}
+                      onChange={(e) => handleActivityChange(dayIdx, actIdx, "siteUrl", e.target.value)}
+                      style={{ fontSize: "0.8rem", padding: "0.5rem 0.75rem" }}
+                    />
+                  </div>
                 </div>
               ))}
 
