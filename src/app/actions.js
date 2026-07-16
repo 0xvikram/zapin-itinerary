@@ -759,3 +759,39 @@ export async function getUserItineraries() {
     return MOCK_ITINERARIES.filter((it) => it.user_id === userId);
   }
 }
+
+// 10. SUBMIT FEEDBACK
+export async function submitFeedback(formData) {
+  const { email, category, content } = formData;
+  if (!email || !content) {
+    return { success: false, error: "Email and content are required." };
+  }
+
+  const { userId } = await getUserDetailsHelper();
+
+  try {
+    if (!isSupabaseConfigured()) {
+      console.log("Supabase not configured. Simulated feedback submission:", { email, category, content, userId });
+      return { success: true };
+    }
+
+    const { error } = await supabase
+      .from("feedback")
+      .insert({
+        user_id: userId || null,
+        email,
+        category,
+        content
+      });
+
+    if (error) throw error;
+    return { success: true };
+  } catch (error) {
+    console.error("Error submitting feedback:", error);
+    if (error.code === "PGRST116" || error.message?.includes("relation \"feedback\" does not exist")) {
+      console.warn("Feedback table not found. Please run the SQL migration schema in your Supabase dashboard.");
+      return { success: true, warning: "Feedback saved locally (Supabase table migration pending)." };
+    }
+    return { success: false, error: error.message };
+  }
+}

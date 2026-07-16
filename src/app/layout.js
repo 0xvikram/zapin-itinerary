@@ -116,7 +116,7 @@ export default async function RootLayout({ children }) {
                   <Sparkles size={14} style={{ color: "var(--primary)" }} /> Powered by <a href="https://zapin.fun" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>zapin.fun</a>
                 </h4>
                 <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.35rem" }}>
-                  Share group travel photos with friends and family during your trips with ease, with zero manual sorting.
+                  Share group travel photos with friends and family during your trips with ease, with zero manual sorting. • We are constantly evolving based on user input. <Link href="/feedback" style={{ color: "var(--primary)", textDecoration: "underline" }}>Leave suggestions or feedback here</Link>.
                 </p>
               </div>
             </footer>

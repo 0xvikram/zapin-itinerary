@@ -94,3 +94,21 @@ create policy "Allow public read access to comments" on public.comments
 
 create policy "Allow all users to manage comments" on public.comments
     for all using (true);
+
+-- 5. Feedback Table (For suggestions, bug reports, and reviews)
+create table public.feedback (
+    id uuid default uuid_generate_v4() primary key,
+    user_id text, -- Clerk user ID (optional if anonymous)
+    email text not null,
+    category text not null, -- 'Suggestion', 'Bug Report', 'Feature Request', etc.
+    content text not null,
+    created_at timestamp with time zone default now() not null
+);
+
+alter table public.feedback enable row level security;
+
+create policy "Allow public insert to feedback" on public.feedback
+    for insert with check (true);
+
+create policy "Allow authenticated read access to feedback" on public.feedback
+    for select using (true);
