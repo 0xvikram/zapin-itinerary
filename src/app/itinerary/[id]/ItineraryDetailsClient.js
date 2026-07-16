@@ -28,6 +28,26 @@ import {
 } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
 
+// Utility helper to format HH:MM 24h clock strings to AM/PM display
+const formatTime = (timeStr) => {
+  if (!timeStr) return "";
+  // Check if it already has AM/PM (like our seeded mock data)
+  if (timeStr.toLowerCase().includes("am") || timeStr.toLowerCase().includes("pm")) {
+    return timeStr;
+  }
+  // Convert 24h HH:MM to 12h AM/PM
+  const parts = timeStr.split(":");
+  if (parts.length >= 2) {
+    let hours = parseInt(parts[0], 10);
+    const minutes = parts[1];
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 should be 12
+    return `${hours}:${minutes} ${ampm}`;
+  }
+  return timeStr;
+};
+
 export default function ItineraryDetailsClient({ initialItinerary, currentUserId }) {
   const { isLoaded, userId } = useAuth();
   const [itinerary, setItinerary] = useState(initialItinerary);
@@ -284,7 +304,7 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
               <div>
                 {day.activities?.map((act, actIdx) => (
                   <div key={actIdx} className="activity-card">
-                    <div className="activity-time">{act.time}</div>
+                    <div className="activity-time">{formatTime(act.time)}</div>
                     <div style={{ fontWeight: "700", marginBottom: "0.25rem" }}>{act.activity}</div>
                     {act.notes && <div style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "0.5rem" }}>{act.notes}</div>}
                     

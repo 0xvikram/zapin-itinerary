@@ -18,7 +18,7 @@ export default function CreateItineraryPage() {
     {
       day: 1,
       title: "First Day Exploration",
-      activities: [{ time: "09:00 AM", activity: "Arrive and Check-in", notes: "", mapLink: "", siteUrl: "" }]
+      activities: [{ time: "09:00", activity: "Arrive and Check-in", notes: "", mapLink: "", siteUrl: "" }]
     }
   ]);
 
@@ -30,7 +30,7 @@ export default function CreateItineraryPage() {
       {
         day: nextDayNum,
         title: `Day ${nextDayNum} Schedule`,
-        activities: [{ time: "09:00 AM", activity: "", notes: "", mapLink: "", siteUrl: "" }]
+        activities: [{ time: "09:00", activity: "", notes: "", mapLink: "", siteUrl: "" }]
       }
     ]);
   };
@@ -57,7 +57,7 @@ export default function CreateItineraryPage() {
   // 4. Add activity to a day
   const handleAddActivity = (dayIndex) => {
     const newDays = [...days];
-    newDays[dayIndex].activities.push({ time: "12:00 PM", activity: "", notes: "", mapLink: "", siteUrl: "" });
+    newDays[dayIndex].activities.push({ time: "12:00", activity: "", notes: "", mapLink: "", siteUrl: "" });
     setDays(newDays);
   };
 
@@ -227,9 +227,8 @@ export default function CreateItineraryPage() {
                   {/* Row 1: Time, Title, Notes & Delete */}
                   <div className="activity-row">
                     <input
-                      type="text"
+                      type="time"
                       className="form-control activity-time-input"
-                      placeholder="Time (e.g. 10:00 AM)"
                       value={act.time}
                       onChange={(e) => handleActivityChange(dayIdx, actIdx, "time", e.target.value)}
                     />
