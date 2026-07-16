@@ -349,17 +349,33 @@ h1, h2, h3, h4, h5, h6 {
 
 .itinerary-card {
   background-color: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: var(--radius-md);
   overflow: hidden;
-  transition: var(--transition);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.itinerary-card:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  background-color: var(--surface-hover);
+/* Vibrant User-written community cards hover */
+.itinerary-card:not(.ai-card):hover {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(218, 248, 113, 0.03) 100%);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-4px);
+}
+
+/* AI Planner cards border & hover */
+.itinerary-card.ai-card {
+  border: 1px solid rgba(218, 248, 113, 0.15);
+  box-shadow: 0 4px 25px rgba(218, 248, 113, 0.03);
+}
+
+.itinerary-card.ai-card:hover {
+  border-color: var(--primary-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-4px);
 }
 
 .card-header {
@@ -410,6 +426,34 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.85rem;
   display: flex;
   justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.card-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-muted);
+}
+
+/* Highlight location/place in neon green */
+.card-meta .meta-item:first-child {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Highlight place and calendar icons in neon green */
+.card-meta .meta-item svg {
+  color: var(--primary) !important;
+}
+
+.card-title a {
+  transition: var(--transition);
+}
+
+.card-title a:hover {
+  color: var(--primary);
 }
 
 .card-body {
