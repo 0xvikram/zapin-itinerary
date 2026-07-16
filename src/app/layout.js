@@ -77,6 +77,9 @@ export default async function RootLayout({ children }) {
                 <Link href="/explore" className="btn btn-secondary">
                   Explore
                 </Link>
+                <Link href="/feedback" className="btn btn-secondary">
+                  Feedback
+                </Link>
                 
                 {userId ? (
                   <>
@@ -111,13 +114,18 @@ export default async function RootLayout({ children }) {
 
             {/* Sticky Footer at Bottom */}
             <footer style={{ borderTop: "1px solid var(--surface-border)", padding: "1.75rem 0", width: "100%", textAlign: "center" }}>
-              <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
-                <h4 style={{ fontSize: "0.85rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", fontWeight: "700" }}>
+              <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}>
+                <h4 style={{ fontSize: "0.85rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", fontWeight: "700", margin: 0 }}>
                   <Sparkles size={14} style={{ color: "var(--primary)" }} /> Powered by <a href="https://zapin.fun" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>zapin.fun</a>
                 </h4>
-                <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.35rem" }}>
-                  Share group travel photos with friends and family during your trips with ease, with zero manual sorting. • We are constantly evolving based on user input. <Link href="/feedback" style={{ color: "var(--primary)", textDecoration: "underline" }}>Leave suggestions or feedback here</Link>.
+                <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", margin: 0 }}>
+                  Share group travel photos with friends and family during your trips with ease, with zero manual sorting.
                 </p>
+                <div style={{ marginTop: "0.25rem" }}>
+                  <Link href="/feedback" className="btn btn-secondary" style={{ padding: "0.45rem 1rem", fontSize: "0.75rem", display: "inline-flex", gap: "0.35rem", alignItems: "center" }}>
+                    Leave Feedback
+                  </Link>
+                </div>
               </div>
             </footer>
             <Analytics />
