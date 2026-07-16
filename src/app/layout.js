@@ -22,7 +22,54 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ClerkProvider>
+        <ClerkProvider
+          appearance={{
+            variables: {
+              colorPrimary: "#daf871",
+              colorBackground: "#0d0d0d",
+              colorText: "#ffffff",
+              colorTextSecondary: "#a3a3a3",
+              colorInputBackground: "#000000",
+              colorInputText: "#ffffff",
+              colorBorder: "#262626",
+              borderRadius: "6px",
+            },
+            elements: {
+              card: {
+                backgroundColor: "#0d0d0d",
+                border: "1px solid #262626",
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.4)",
+              },
+              headerTitle: {
+                fontWeight: "800",
+                letterSpacing: "-0.02em",
+              },
+              socialButtonsIconButton: {
+                backgroundColor: "#000000",
+                border: "1px solid #262626",
+                "&:hover": {
+                  backgroundColor: "#171717",
+                }
+              },
+              formButtonPrimary: {
+                backgroundColor: "#daf871",
+                color: "#000000",
+                fontWeight: "700",
+                textTransform: "uppercase",
+                letterSpacing: "0.05em",
+                "&:hover": {
+                  backgroundColor: "#cbe960",
+                }
+              },
+              footerActionLink: {
+                color: "#daf871",
+                "&:hover": {
+                  color: "#cbe960",
+                }
+              }
+            }
+          }}
+        >
           <div className="app-container">
             <header className="navbar">
               <Link href="/" className="nav-logo">Roam</Link>
