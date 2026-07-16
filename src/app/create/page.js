@@ -128,10 +128,10 @@ export default function CreateItineraryPage() {
       <div className="zapin-banner creator-banner">
         <div className="zapin-banner-content">
           <h4 className="banner-title">
-            <Sparkles size={16} style={{ color: "var(--primary)" }} /> Powered by Zapin
+            <Sparkles size={16} style={{ color: "var(--primary)" }} /> Powered by zapin.fun
           </h4>
           <p className="banner-text">
-            Once published, travelers can instantly turn your plan into automated Google Calendar events & custom checklist packages.
+            Once published, other travelers can copy your itinerary and easily collect & share their trip group photos with friends and family via zapin.fun with zero manual sorting!
           </p>
         </div>
       </div>

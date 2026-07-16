@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata = {
   title: "Roam - Community Verified Travel Itineraries",
-  description: "Ditch the photospam. Roam lets you explore community-voted travel itineraries, track real routes, verify trips, add interactive maps and booking links, and instantly sync schedules to your calendar via Zapin.",
+  description: "Ditch the photospam. Roam is your ultimate travel itinerary hub. Easily verify real community routes, explore itineraries, and share group travel photos with family and friends via zapin.fun with zero manual sorting.",
 };
 
 export default async function RootLayout({ children }) {
@@ -54,7 +54,7 @@ export default async function RootLayout({ children }) {
             <div className="marquee-ribbon" style={{ marginTop: "auto" }}>
               <div className="animate-marquee">
                 <span>
-                  {Array(10).fill("COMMUNITY VERIFIED • NO MORE PHOTO SPAM • AUTOMATE YOUR CALENDAR VIA ZAPIN • EXPORT OFFLINE TRAVEL PDF • ").join("")}
+                  {Array(10).fill("COMMUNITY VERIFIED • NO MORE PHOTO SPAM • SHARE GROUP PHOTOS INSTANTLY VIA ZAPIN.FUN • ZERO MANUAL SORTING • ").join("")}
                 </span>
               </div>
             </div>
@@ -63,10 +63,10 @@ export default async function RootLayout({ children }) {
             <footer style={{ borderTop: "1px solid var(--surface-border)", padding: "1.75rem 0", width: "100%", textAlign: "center" }}>
               <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 2rem" }}>
                 <h4 style={{ fontSize: "0.85rem", color: "var(--text-muted)", display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", fontWeight: "700" }}>
-                  <Sparkles size={14} style={{ color: "var(--primary)" }} /> Powered by <a href="https://zapin.fun" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>Zapin</a>
+                  <Sparkles size={14} style={{ color: "var(--primary)" }} /> Powered by <a href="https://zapin.fun" target="_blank" rel="noopener noreferrer" style={{ color: "white", textDecoration: "underline" }}>zapin.fun</a>
                 </h4>
                 <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.35rem" }}>
-                  Automate trip calendar invites, packing checklists, and offline travel documents.
+                  Share group travel photos with friends and family during your trips with ease, with zero manual sorting.
                 </p>
               </div>
             </footer>

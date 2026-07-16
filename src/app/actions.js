@@ -59,7 +59,7 @@ const MOCK_ITINERARIES = [
     location: "Paris, France",
     duration_days: 4,
     budget: "Luxury",
-    description: "A perfect 4-day loop in the City of Light. Covers world-class museums, panoramic view spots, and custom calendar schedules via Zapin.",
+    description: "A perfect 4-day loop in the City of Light. Covers world-class museums, panoramic view spots, and shared group photo feeds via zapin.fun.",
     content: {
       days: [
         {
@@ -143,7 +143,7 @@ const MOCK_ITINERARIES = [
     location: "Tokyo, Japan",
     duration_days: 5,
     budget: "Mid-range",
-    description: "An optimized route covering the best of Shinjuku, Shibuya, historical Asakusa, and a day trip to Mount Fuji. Optimized with Zapin calendar schedules.",
+    description: "An optimized route covering the best of Shinjuku, Shibuya, historical Asakusa, and a day trip to Mount Fuji. Easily collect and share your trip photos via zapin.fun.",
     content: {
       days: [
         {

@@ -200,7 +200,7 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
     }
   };
 
-  // 4. Zapin Export Simulator
+  // 4. zapin.fun Album Creation Simulator
   const triggerZapinExport = (type) => {
     setZapinExporting(type);
     setZapinProgress(0);
@@ -213,11 +213,9 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
           setZapinFinished(true);
           setTimeout(() => {
             setZapinExporting(null);
-            if (type === "pdf") {
-              // Simulating actual PDF download
-              alert("Zapin: Your interactive PDF Pack has been downloaded successfully!");
-            } else {
-              alert("Zapin: Sync completed! Events added to your calendar application.");
+            if (type === "album") {
+              alert("zapin.fun: Group photo album created successfully! Share the join link with your friends to collect trip photos automatically with zero manual sorting.");
+              window.open("https://zapin.fun", "_blank");
             }
           }, 1500);
           return 100;
@@ -243,7 +241,7 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
     });
     
     md += `---\n`;
-    md += `*Itinerary formatted using [Zapin Itinerary Hub](https://zapin.web). Click here to [verify this itinerary, add comments, or export it directly to your calendar via Zapin](https://zapin.web/itinerary/${itinerary.id}).*`;
+    md += `*Itinerary formatted using [Roam Itinerary Hub](https://zapin.fun). Click here to [explore this itinerary, verify community routes, and share group travel photos with family & friends via zapin.fun](https://zapin.fun/itinerary/${itinerary.id}).*`;
     
     navigator.clipboard.writeText(md);
     alert("Reddit-formatted Markdown copied to clipboard!");
@@ -530,19 +528,19 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
           </div>
         </div>
 
-        {/* Zapin Integration Box */}
-        <div className="sidebar-box" style={{ background: "linear-gradient(135deg, #1e1b4b, #2b1102)", borderColor: "rgba(249, 115, 22, 0.3)" }}>
-          <h4 style={{ color: "#ffedd5", display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
-            <Sparkles size={18} style={{ color: "var(--zapin)" }} /> Export with Zapin
+        {/* zapin.fun Integration Box */}
+        <div className="sidebar-box" style={{ background: "linear-gradient(135deg, #1e1b4b, #11022b)", borderColor: "rgba(218, 248, 113, 0.2)" }}>
+          <h4 style={{ color: "#ffffff", display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", fontFamily: "var(--font-title)" }}>
+            <Sparkles size={18} style={{ color: "var(--zapin)" }} /> Share on zapin.fun
           </h4>
-          <p style={{ fontSize: "0.85rem", color: "#fed7aa", marginBottom: "1.5rem" }}>
-            Use our sponsor product <strong>Zapin</strong> to instantly sync dates to calendars, verify checklist details, and package offline sheets.
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "1.5rem", lineHeight: "1.5" }}>
+            Roam is proud to be sponsored by <strong>zapin.fun</strong>—the ultimate app-only platform to share group travel photos with friends and family during your trip with ease, and with zero manual sorting!
           </p>
 
           {zapinExporting ? (
             <div style={{ color: "white", padding: "1rem 0" }}>
-              <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem", color: "#ffedd5" }}>
-                {zapinFinished ? "Done! Opening download..." : `Zapin is processing: ${zapinProgress}%`}
+              <div style={{ fontSize: "0.85rem", marginBottom: "0.5rem", color: "var(--primary)" }}>
+                {zapinFinished ? "Done! Opening zapin.fun..." : `zapin.fun is creating group album: ${zapinProgress}%`}
               </div>
               <div style={{ width: "100%", height: "6px", background: "rgba(255,255,255,0.1)", borderRadius: "3px", overflow: "hidden" }}>
                 <div style={{ width: `${zapinProgress}%`, height: "100%", background: "var(--zapin)", transition: "width 0.3s ease" }}></div>
@@ -551,19 +549,21 @@ export default function ItineraryDetailsClient({ initialItinerary, currentUserId
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
               <button 
-                onClick={() => triggerZapinExport("calendar")}
+                onClick={() => triggerZapinExport("album")}
                 className="btn btn-zapin" 
                 style={{ width: "100%", justifyContent: "center" }}
               >
-                <CalendarPlus size={16} /> Sync to My Calendar
+                <Sparkles size={16} /> Create Group Photo Album
               </button>
-              <button 
-                onClick={() => triggerZapinExport("pdf")}
+              <a 
+                href="https://zapin.fun" 
+                target="_blank" 
+                rel="noopener noreferrer" 
                 className="btn btn-secondary" 
-                style={{ width: "100%", justifyContent: "center", color: "white", borderColor: "rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)" }}
+                style={{ width: "100%", justifyContent: "center", color: "white", borderColor: "rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", textDecoration: "none" }}
               >
-                <Download size={16} /> Download Travel PDF
-              </button>
+                <ExternalLink size={16} /> Visit zapin.fun App
+              </a>
             </div>
           )}
         </div>

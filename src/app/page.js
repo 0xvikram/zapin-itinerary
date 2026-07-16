@@ -12,7 +12,7 @@ export default function Home() {
             Verified by the <span>Community</span>.
           </h1>
           <p className="hero-subtitle">
-            Explore authentic travel routes or post your own. Instantly export packing lists and schedules to your calendar via Zapin.
+            Explore authentic travel routes or post your own. Capture memories on your trips and share group photos with friends and family with ease via zapin.fun, with zero manual sorting.
           </p>
         </section>
 
