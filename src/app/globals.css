@@ -958,6 +958,141 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
 }
 
+/* ─── Creator Page Styles ─── */
+.creator-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.creator-header {
+  margin-bottom: 2rem;
+}
+
+.creator-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-title);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.creator-description {
+  color: var(--text-muted);
+}
+
+.creator-banner {
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #1e1b4b, #200831);
+}
+
+.creator-banner .banner-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-title);
+  margin-bottom: 0.25rem;
+}
+
+.creator-banner .banner-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.creator-form {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.builder-section-title {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  margin: 2.5rem 0 1.25rem 0;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 0.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.day-builder-card {
+  background: var(--background);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.day-builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.day-builder-header .day-title {
+  font-size: 1.15rem;
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+.btn-remove-day {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.btn-remove-day:hover {
+  opacity: 0.8;
+}
+
+.activities-builder-list {
+  padding-left: 1.5rem;
+  border-left: 2px dashed var(--surface-border);
+}
+
+.activities-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-add-activity {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-form-action {
+  flex: 1;
+  justify-content: center;
+  padding: 0.85rem 1.5rem;
+}
+
 /* Activity Card Form Container */
 .activity-input-card {
   background-color: rgba(255, 255, 255, 0.01);
@@ -1203,5 +1338,43 @@ h1, h2, h3, h4, h5, h6 {
     right: 0.5rem;
     padding: 0.25rem;
     z-index: 5;
+  }
+
+  /* Creator Form mobile optimization */
+  .creator-title {
+    font-size: 1.75rem;
+  }
+  
+  .creator-form {
+    padding: 1.25rem 1rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .day-builder-card {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .activities-builder-list {
+    padding-left: 0.5rem;
+    border-left: 1px solid var(--surface-border);
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+  
+  .btn-form-action {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.25rem;
   }
 }

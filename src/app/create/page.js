@@ -114,29 +114,29 @@ export default function CreateItineraryPage() {
   };
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-      <div style={{ marginBottom: "2rem" }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "0.5rem", fontFamily: "var(--font-title)" }}>
+    <div className="creator-container">
+      <div className="creator-header">
+        <h1 className="creator-title">
           Post Your Travel Itinerary
         </h1>
-        <p style={{ color: "var(--text-muted)" }}>
+        <p className="creator-description">
           Share your real trip experience. The community will verify and rank your itinerary.
         </p>
       </div>
 
       {/* Zapin Creator Promo */}
-      <div className="zapin-banner" style={{ marginBottom: "2rem", padding: "1.25rem", background: "linear-gradient(135deg, #1e1b4b, #200831)" }}>
+      <div className="zapin-banner creator-banner">
         <div className="zapin-banner-content">
-          <h4 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <Sparkles size={16} style={{ color: "var(--zapin)" }} /> Powered by Zapin
+          <h4 className="banner-title">
+            <Sparkles size={16} style={{ color: "var(--primary)" }} /> Powered by Zapin
           </h4>
-          <p style={{ fontSize: "0.85rem" }}>
+          <p className="banner-text">
             Once published, travelers can instantly turn your plan into automated Google Calendar events & custom checklist packages.
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "var(--radius-md)", padding: "2.5rem", boxShadow: "var(--shadow-md)" }}>
+      <form onSubmit={handleSubmit} className="creator-form">
         {/* Core fields */}
         <div className="form-group">
           <label className="form-label">Itinerary Title</label>
@@ -150,7 +150,7 @@ export default function CreateItineraryPage() {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+        <div className="form-grid-2">
           <div className="form-group">
             <label className="form-label">Destination Location</label>
             <input
@@ -189,19 +189,19 @@ export default function CreateItineraryPage() {
         </div>
 
         {/* Dynamic Days Builder */}
-        <h2 style={{ fontFamily: "var(--font-title)", fontSize: "1.5rem", margin: "2rem 0 1rem 0", borderBottom: "1px solid var(--surface-border)", paddingBottom: "0.5rem" }}>
+        <h2 className="builder-section-title">
           Trip Timeline & Schedule
         </h2>
 
         {days.map((day, dayIdx) => (
-          <div key={dayIdx} style={{ background: "var(--background)", border: "1px solid var(--surface-border)", borderRadius: "var(--radius-sm)", padding: "1.5rem", marginBottom: "2rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-              <h3 style={{ fontSize: "1.1rem" }}>Day {day.day}</h3>
+          <div key={dayIdx} className="day-builder-card">
+            <div className="day-builder-header">
+              <h3 className="day-title">Day {day.day}</h3>
               {days.length > 1 && (
                 <button
                   type="button"
                   onClick={() => handleRemoveDay(dayIdx)}
-                  style={{ background: "none", border: "none", color: "var(--danger)", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.25rem", fontSize: "0.85rem" }}
+                  className="btn-remove-day"
                 >
                   <Trash2 size={14} /> Remove Day
                 </button>
@@ -220,8 +220,8 @@ export default function CreateItineraryPage() {
             </div>
 
             {/* Activities list in day */}
-            <div style={{ paddingLeft: "1rem", borderLeft: "2px dashed var(--surface-border)" }}>
-              <div style={{ fontSize: "0.85rem", fontWeight: "700", marginBottom: "0.75rem", color: "var(--text-muted)" }}>Activities:</div>
+            <div className="activities-builder-list">
+              <div className="activities-label">Activities:</div>
               {day.activities.map((act, actIdx) => (
                 <div key={actIdx} className="activity-input-card">
                   {/* Row 1: Time, Title, Notes & Delete */}
@@ -267,7 +267,6 @@ export default function CreateItineraryPage() {
                       placeholder="Google Maps URL (optional)"
                       value={act.mapLink || ""}
                       onChange={(e) => handleActivityChange(dayIdx, actIdx, "mapLink", e.target.value)}
-                      style={{ fontSize: "0.8rem", padding: "0.5rem 0.75rem" }}
                     />
                     <input
                       type="text"
@@ -275,7 +274,6 @@ export default function CreateItineraryPage() {
                       placeholder="Website / Ticket URL (optional)"
                       value={act.siteUrl || ""}
                       onChange={(e) => handleActivityChange(dayIdx, actIdx, "siteUrl", e.target.value)}
-                      style={{ fontSize: "0.8rem", padding: "0.5rem 0.75rem" }}
                     />
                   </div>
                 </div>
@@ -284,8 +282,7 @@ export default function CreateItineraryPage() {
               <button
                 type="button"
                 onClick={() => handleAddActivity(dayIdx)}
-                className="btn btn-secondary"
-                style={{ padding: "0.5rem 1rem", fontSize: "0.85rem", marginTop: "0.5rem" }}
+                className="btn btn-secondary btn-add-activity"
               >
                 <Plus size={14} /> Add Activity
               </button>
@@ -293,20 +290,18 @@ export default function CreateItineraryPage() {
           </div>
         ))}
 
-        <div style={{ display: "flex", gap: "1rem", marginTop: "1.5rem" }}>
+        <div className="form-actions">
           <button
             type="button"
             onClick={handleAddDay}
-            className="btn btn-secondary"
-            style={{ flex: 1, justifyContent: "center" }}
+            className="btn btn-secondary btn-form-action"
           >
             <Plus size={16} /> Add Day to Itinerary
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="btn btn-primary"
-            style={{ flex: 1, justifyContent: "center" }}
+            className="btn btn-primary btn-form-action"
           >
             {loading ? "Publishing..." : "Publish Itinerary"}
           </button>
