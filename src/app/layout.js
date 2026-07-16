@@ -72,22 +72,17 @@ export default async function RootLayout({ children }) {
         >
           <div className="app-container">
             <header className="navbar">
-              <div className="navbar-top-row">
-                <Link href="/" className="nav-logo">Roam</Link>
-                <div className="navbar-actions">
-                  {userId ? (
-                    <>
-                      <Link href="/create" className="btn btn-primary btn-nav-create">
-                        Create
-                      </Link>
-                      <UserButton afterSignOutUrl="/" />
-                    </>
-                  ) : (
-                    <SignInButton mode="modal">
-                      <button className="btn btn-primary btn-nav-create">Sign In</button>
-                    </SignInButton>
-                  )}
-                </div>
+              <Link href="/" className="nav-logo">Roam</Link>
+              
+              <input type="checkbox" id="nav-toggle" className="nav-toggle" style={{ display: "none" }} />
+              
+              <div className="navbar-right">
+                {userId && <UserButton afterSignOutUrl="/" />}
+                <label htmlFor="nav-toggle" className="nav-toggle-label">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </label>
               </div>
               
               <nav className="nav-links">
@@ -97,10 +92,19 @@ export default async function RootLayout({ children }) {
                 <Link href="/feedback" className="btn btn-secondary">
                   Feedback
                 </Link>
-                {userId && (
-                  <Link href="/profile" className="btn btn-secondary">
-                    Profile
-                  </Link>
+                {userId ? (
+                  <>
+                    <Link href="/profile" className="btn btn-secondary">
+                      Profile
+                    </Link>
+                    <Link href="/create" className="btn btn-primary btn-nav-create">
+                      Create
+                    </Link>
+                  </>
+                ) : (
+                  <SignInButton mode="modal">
+                    <button className="btn btn-primary btn-nav-create">Sign In</button>
+                  </SignInButton>
                 )}
               </nav>
             </header>
