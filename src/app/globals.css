@@ -46,6 +46,8 @@
 html {
   background-color: var(--background);
   color-scheme: dark;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Base resets */
@@ -69,6 +71,8 @@ body {
   flex-direction: column;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
